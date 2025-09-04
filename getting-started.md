@@ -6,7 +6,7 @@ nav_order: 2
 
 # Getting Started
 
-This guide walks you through setting up the Agent Development Kit (ADK) and running your first agent in under 10 minutes.
+This guide walks you through setting up the Agent Development Kit (ADK) and running your first agent in under 10 minutes. These guides only cover the basic topics necessary to get started. If you choose to use Google ADK, please refer to the [documentation](https://google.github.io/adk-docs/)
 
 ## Prerequisites
 
