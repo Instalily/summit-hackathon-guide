@@ -15,6 +15,24 @@ Welcome to the Agent Development Kit (ADK) hackathon guide. This resource will h
   <a href="first-agent" class="btn fs-5 mb-4 mb-md-0">Build First Agent</a>
 </div>
 
+## Replit Quick Start
+
+Get started instantly with our pre-configured Replit template:
+
+1. **Access the template**: [Open Agent Quickstart on Replit](https://replit.com/@logan207/AgentQuickstart?v=1)
+2. **Remix to your account**: Click the "Remix" button (free Replit account required)
+3. **Collaborate**: Invite teammates to work together in real-time
+
+This Replit template includes:
+- Pre-configured ADK environment
+- Sample agent code
+- All dependencies installed
+- Ready-to-use development server
+
+## Local Development Quick Start
+
+Get started with local development by downloading the .zip file [here](https://drive.google.com/file/d/1-HV373G19Jl_LzRyohk0Tu4qHUwNqkXK/view?usp=sharing)
+
 ## Documentation Overview
 
 ### [Flowise Visual Builder](flowise-quickstart)

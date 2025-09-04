@@ -27,7 +27,7 @@ aux_links:
     - "//google.github.io/adk-docs/"
 
 # Footer
-footer_content: "SRS x InstaLILY Summit Hackathon 2024. Built with ❤️ using Jekyll and Just the Docs."
+footer_content: "SRS x InstaLILY Summit Hackathon 2024."
 
 # Back to top
 back_to_top: true

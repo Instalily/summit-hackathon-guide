@@ -23,35 +23,22 @@ Before you begin, ensure you have:
 
 ## Step 1: Environment Setup
 
-### Option A: Using UV (Recommended)
+### Option A: From Local Repository (If you downloaded the template)
 
-UV is a blazing-fast Python package manager that handles dependencies efficiently.
-
-```bash
-# Install UV if you haven't already
-curl -LsSf https://astral.sh/uv/install.sh | sh
-
-# Clone the hackathon template
-git clone <your-repo-url>
-cd SummitTemplate
-
-# Install all dependencies with UV
-uv sync
-```
-
-### Option B: Using pip (Traditional)
+If you have the repository with `pyproject.toml`:
 
 ```bash
-# Clone the hackathon template
-git clone <your-repo-url>
-cd SummitTemplate
+# Navigate to your downloaded repository
+cd path/to/your/AgentQuickstart
 
-# Create and activate virtual environment
+# Using UV (Fastest - recommended)
+curl -LsSf https://astral.sh/uv/install.sh | sh  # Install UV first
+uv sync  # This reads pyproject.toml and installs everything
+
+# OR using pip with pyproject.toml
 python -m venv venv
 source venv/bin/activate  # On Windows: venv\Scripts\activate
-
-# Install ADK and dependencies
-pip install google-adk jupyter
+pip install -e .  # Installs in editable mode from pyproject.toml
 ```
 
 ## Step 2: Understanding the Project Structure
@@ -209,17 +196,6 @@ def get_mcp_toolset(user_id: str = 'guest_user') -> MCPToolset:
 The MCP server provides:
 - Online search capabilities
 - Quick answers with citations
-- Additional tools that can be dynamically loaded
-
-### Using Your Own MCP Server
-
-If you have your own MCP server:
-
-```python
-def get_mcp_toolset(user_id: str = 'guest_user') -> MCPToolset:
-    url = 'YOUR_MCP_SERVER_URL'  # Replace with your server
-    # ... rest of the configuration
-```
 
 ## Step 6: Testing and Debugging
 
@@ -239,11 +215,4 @@ logger = logging.getLogger(__name__)
 logger.info(f"Processing request: {user_input}")
 logger.debug(f"Tool response: {response}")
 logger.error(f"Error occurred: {error}")
-```
-
-### Hot Reload
-
-```bash
-# Enable auto-reload
-adk web --reload_agents --port 5000
 ```
