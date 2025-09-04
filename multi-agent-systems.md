@@ -1,5 +1,6 @@
 ---
 title: Multi-Agent Systems
+layout: default
 nav_order: 4
 ---
 
