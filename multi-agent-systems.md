@@ -6,7 +6,7 @@ nav_order: 4
 
 # Multi-Agent Systems
 
-This guide covers delegation, parallel processing, and hierarchical orchestration. These are only the most basic agent patterns. Refer to Google's ADK documentation found on the top right of the page to learn more or in this [link](https://google.github.io/adk-docs/agents/multi-agents/#c-explicit-invocation-agenttool)
+This guide covers delegation, parallel processing, and hierarchical orchestration. These are only the most basic agent patterns. Refer to Google's ADK documentation found on the top right of the page to learn more (Agents >> Multi Agent Systems)
 
 ## Why Multi-Agent Systems?
 
