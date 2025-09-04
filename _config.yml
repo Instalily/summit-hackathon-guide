@@ -4,8 +4,8 @@ remote_theme: just-the-docs/just-the-docs
 color_scheme: light
 
 # Site settings
-baseurl: "" 
-url: ""
+baseurl: "/summit-hackathon-guide" 
+url: "https://logange.github.io"
 
 # Features
 search_enabled: true
