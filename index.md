@@ -36,12 +36,6 @@ Get started with local development by downloading the .zip file [here](https://d
 
 ## Documentation Overview
 
-### [Flowise PDF Guide](flowise-pdf)
-- Complete Flowise walkthrough
-- Step-by-step instructions
-- Visual flow builder guide
-- Integration setup
-
 ### [Getting Started](getting-started)
 - Environment setup with Python and ADK
 - Understanding project structure
@@ -59,3 +53,13 @@ Get started with local development by downloading the .zip file [here](https://d
 - Dynamic routing
 - Hierarchical systems
 - Real-world implementations
+
+### [Flowise PDF Guide](flowise-pdf)
+- Complete Flowise walkthrough
+- Step-by-step instructions
+- Visual flow builder guide
+- Integration setup
+
+<div style="text-align: center; margin-top: 3rem;">
+  <a href="getting-started" class="btn btn-purple fs-5 mb-4 mb-md-0">Start Building</a>
+</div>

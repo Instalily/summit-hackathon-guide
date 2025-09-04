@@ -46,11 +46,3 @@ callouts:
     color: blue
   tip:
     color: green
-
-# Exclude from navigation
-exclude:
-  - "*.pdf"
-  - "README.md"
-  - "assets/"
-  - "pdf-viewer.html"
-  - "resources.md"
