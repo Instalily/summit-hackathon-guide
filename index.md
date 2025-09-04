@@ -11,9 +11,9 @@ Welcome to the Agent Development Kit (ADK) hackathon guide. This resource will h
 
 <div style="display: flex; gap: 1rem; margin: 2rem 0; flex-wrap: wrap;">
   <a href="getting-started" class="btn btn-primary fs-5 mb-4 mb-md-0 mr-2">Getting Started</a>
-  <a href="flowise-quickstart" class="btn btn-purple fs-5 mb-4 mb-md-0 mr-2">Flowise No-Code</a>
+  <a href="flowise-pdf" class="btn btn-purple fs-5 mb-4 mb-md-0 mr-2">Flowise Guide PDF</a>
   <a href="first-agent" class="btn fs-5 mb-4 mb-md-0">Build First Agent</a>
-  <a href="first-agent" class="btn fs-5 mb-4 mb-md-0">Build Multi Agent</a>
+  <a href="multi-agent-systems" class="btn fs-5 mb-4 mb-md-0">Build Multi Agent</a>
 </div>
 
 ## Replit Quick Start
@@ -36,11 +36,11 @@ Get started with local development by downloading the .zip file [here](https://d
 
 ## Documentation Overview
 
-### [Flowise Visual Builder](flowise-quickstart)
-- No-code agent creation
-- Marketplace templates
+### [Flowise PDF Guide](flowise-pdf)
+- Complete Flowise walkthrough
+- Step-by-step instructions
+- Visual flow builder guide
 - Integration setup
-- Visual debugging
 
 ### [Getting Started](getting-started)
 - Environment setup with Python and ADK
