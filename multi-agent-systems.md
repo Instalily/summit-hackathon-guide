@@ -4,32 +4,39 @@ layout: default
 nav_order: 4
 ---
 
-# Agent Guide Part 2: Multi Agent Pattern
+# Multi-Agent Systems
 
-Multi-agent systems allow you to create complex AI applications by coordinating multiple specialized agents. This guide covers everything from basic delegation to advanced orchestration patterns.
+Learn how to build sophisticated AI systems by coordinating multiple specialized agents. This guide covers delegation, parallel processing, and hierarchical orchestration.
 
 ## Why Multi-Agent Systems?
 
-Multi-agent architectures offer:
-- **Specialization**: Each agent focuses on specific tasks
-- **Scalability**: Add new capabilities by adding agents
-- **Modularity**: Swap or update agents independently
-- **Parallel Processing**: Multiple agents working simultaneously
-- **Fault Tolerance**: If one agent fails, others continue
+### Benefits
+
+| Benefit | Description | Example |
+|---------|-------------|----------|
+| **Specialization** | Each agent masters specific tasks | Research agent + Writer agent |
+| **Scalability** | Add capabilities without rewriting | Plugin new agents anytime |
+| **Modularity** | Update agents independently | Swap models per agent |
+| **Parallel Processing** | Multiple agents work simultaneously | 10x faster processing |
+| **Fault Tolerance** | System continues if one fails | Resilient architecture |
 
 ## Core Concepts
 
 ### Agent Types in ADK
 
-1. **Task Agents**: Perform specific actions (main workers)
-2. **Sequential Agents**: Execute agents in order
-3. **Parallel Agents**: Run multiple agents simultaneously
-4. **Loop Agents**: Iterate over data or repeat tasks
-5. **Router Agents**: Dynamically choose which agent to use
+| Agent Type | Purpose | Use Case |
+|------------|---------|----------|
+| **Task Agents** | Perform specific actions | Data processing, API calls |
+| **Sequential Agents** | Execute in order | Step-by-step workflows |
+| **Parallel Agents** | Run simultaneously | Multi-source data gathering |
+| **Loop Agents** | Iterate over data | Batch processing |
+| **Router Agents** | Dynamic selection | Intent-based routing |
 
 ## Part 1: Basic Multi-Agent Patterns
 
 ### Pattern 1: Delegation Chain
+
+Use when tasks need to flow through multiple specialists.
 
 ```python
 from google.adk.agents import Agent, SequentialAgent
@@ -69,6 +76,8 @@ report_generator = SequentialAgent(
 
 ### Pattern 2: Parallel Processing
 
+Use when multiple tasks can run simultaneously.
+
 ```python
 from google.adk.agents import ParallelAgent
 
@@ -95,6 +104,8 @@ comprehensive_agent = SequentialAgent(
 ```
 
 ### Pattern 3: Dynamic Routing
+
+Use when you need to choose agents based on input.
 
 ```python
 from google.adk.agents import Agent
@@ -170,13 +181,27 @@ class RouterAgent:
 
 ### Hierarchical Agent System
 
+Build enterprise-grade systems with multiple management layers.
+
 ```python
 from google.adk.agents import Agent, SequentialAgent, ParallelAgent
 from typing import List, Dict, Any
 import json
 
 class HierarchicalAgentSystem:
-    """Multi-level agent hierarchy for complex tasks."""
+    """
+    Enterprise-grade multi-level agent hierarchy.
+    
+    Structure:
+        Director (Level 1)
+            ├── Data Manager (Level 2)
+            │   ├── Data Collector (Level 3)
+            │   └── Data Processor (Level 3)
+            ├── Analysis Manager (Level 2)
+            │   └── Analyzer (Level 3)
+            └── Reporting Manager (Level 2)
+                └── Report Writer (Level 3)
+    """
     
     def __init__(self):
         # Level 3: Worker agents (bottom level)

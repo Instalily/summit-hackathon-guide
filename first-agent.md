@@ -4,47 +4,42 @@ layout: default
 nav_order: 3
 ---
 
-# Agent Guide Part 1: Single Agent Pattern
+# Building Your First Agent
 
-In this tutorial, we'll build a complete AI agent from scratch using Google's Agent Development Kit (ADK). By the end, you'll have a working agent that can answer questions, use tools, and interact with users.
+In this tutorial, you'll build a complete AI agent from scratch using Google's Agent Development Kit (ADK).
 
-## What We'll Build
+## What You'll Build
 
-We'll create a "Research Assistant" agent that can:
-- Answer questions using an LLM
+A Research Assistant agent that can:
+- Answer questions using LLMs
 - Search the web for information
-- Provide the current time
-- Cite sources for its answers
+- Provide time across different cities
+- Perform calculations
+- Cite sources
 
 ## Prerequisites
 
-- Completed the [Getting Started Guide](../getting-started.md)
-- Python environment set up with ADK installed
-- Basic understanding of Python functions
+- Completed [Getting Started](getting-started)
+- Python 3.11+ environment
+- ADK installed (`pip install google-adk`)
+- Basic Python knowledge
 
 ## Part 1: Understanding Agent Components
 
-An ADK agent consists of four main components:
+### Core Components
 
-### 1. Agent Definition
-The core configuration that defines your agent's identity and capabilities.
-
-### 2. Model Selection
-The LLM that powers your agent's reasoning (Gemini, GPT, Claude, etc.).
-
-### 3. Instructions/Prompts
-The system prompt that guides your agent's behavior and personality.
-
-### 4. Tools
-Functions your agent can call to perform actions or retrieve information.
+| Component | Purpose | Example |
+|-----------|---------|----------|
+| **Agent Definition** | Identity & configuration | Name, description, model |
+| **Model Selection** | LLM choice | Gemini 2.5, GPT-4, Claude |
+| **Instructions** | System prompts | Behavior guidelines |
+| **Tools** | Functions | Search, calculate, fetch data |
 
 ## Part 2: Creating a Basic Agent
 
-Let's start with the simplest possible agent.
+### Step 1: Create Your Agent File
 
-### Step 1: Create the Agent File
-
-Create a new file `my_first_agent.py`:
+Create a new file called `my_first_agent.py`:
 
 ```python
 from google.adk.agents import Agent
@@ -61,27 +56,29 @@ simple_agent = Agent(
 root_agent = simple_agent
 ```
 
-### Step 2: Run Your Agent
+### Step 2: Launch Your Agent
 
 ```bash
-# Save the file and run
+# Save the file and start the server
 adk web
+
+# Server will start at http://localhost:5000
 ```
 
-Cmd click on the link and start chatting with your agent!
+### Step 3: Test Your Agent
 
-Example prompts to try:
+Try these prompts:
 - "Hello! Who are you?"
 - "What can you help me with?"
 - "Explain quantum computing in simple terms"
 
 ## Part 3: Adding Custom Tools
 
-Tools give your agent superpowers. Let's add some capabilities.
+Tools are Python functions that give your agent real-world capabilities.
 
 ### Step 1: Create a Time Tool
 
-Update `my_first_agent.py`:
+Update your `my_first_agent.py`:
 
 ```python
 from google.adk.agents import Agent
@@ -139,14 +136,19 @@ root_agent = simple_agent
 
 ### Step 2: Test the Tool
 
-Restart your agent and try:
+```bash
+# Restart the server
+adk web --reload_agents
+```
+
+Test with:
 - "What time is it in Tokyo?"
 - "Tell me the current time in London and New York"
 - "What's the date in Sydney?"
 
 ## Part 4: Adding a Calculator Tool
 
-Let's add another useful tool:
+Let's add mathematical capabilities:
 
 ```python
 import math
@@ -205,11 +207,11 @@ Test with:
 - "Calculate the square root of 144"
 - "What's 5 factorial?"
 
-## Part 5: Enhancing with Better Prompts
+## Part 5: Improving Prompts
 
-Good prompts make agents more effective. Let's create a separate prompt file.
+### Step 1: Create a Prompts File
 
-### Step 1: Create `prompts.py`
+Create `prompts.py`:
 
 ```python
 RESEARCH_ASSISTANT_PROMPT = """
@@ -397,29 +399,29 @@ if __name__ == "__main__":
     logger.info("Research Assistant Agent initialized successfully!")
 ```
 
-## Part 8: Testing Your Complete Agent
+## Part 8: Testing Your Agent
 
-Try these prompts to test all capabilities:
+### Test All Capabilities
 
-### Basic Conversation
+#### Basic Conversation
 - "Hello! What can you help me with?"
 - "Explain how you work"
 
-### Time Queries
+#### Time Queries
 - "What time is it in Tokyo and London?"
 - "What day is it in Sydney?"
 
-### Calculations
+#### Calculations
 - "Calculate 15% tip on $85.50"
 - "What's the square root of 2024?"
 - "Convert 100 fahrenheit to celsius using the formula (F-32)*5/9"
 
-### Web Search (via MCP)
+#### Web Search (via MCP)
 - "What's the latest news in AI?"
 - "Tell me about recent developments in quantum computing"
 - "Search for Python programming best practices"
 
-### Combined Tasks
+#### Combined Tasks
 - "What time is it in New York, and what's 20% of 150?"
 - "Search for the population of Tokyo and calculate its square root"
 
@@ -460,28 +462,28 @@ logger.info(f"Returning time: {now}")
 
 ## Part 10: Next Steps
 
-### Enhancements to Try
+### Enhancement Ideas
 
-1. **Add More Cities** to the timezone tool
-2. **Create a Weather Tool** using an API
-3. **Add Memory** to remember user preferences
-4. **Implement Data Visualization** tools
-5. **Create Specialized Prompts** for different use cases
+1. Add more cities to the timezone tool
+2. Create a weather tool using an API
+3. Add memory to remember user preferences
+4. Implement data visualization tools
+5. Create specialized prompts for different use cases
 
-### Advanced Topics to Explore
+### Advanced Topics
 
-- [Working with Tools](./02-working-with-tools.md) - Deep dive into tool creation
-- [MCP Integration](./03-mcp-integration.md) - Advanced MCP features
-- [Multi-Agent Systems](../guides/multi-agent-systems.md) - Coordinating multiple agents
+- [Multi-Agent Systems](multi-agent-systems) - Coordinate multiple agents
+- Advanced tool creation
+- MCP integration details
 
 ## Summary
 
-Congratulations! You've built a complete ADK agent with:
-- ✅ Custom tools for time and calculations
-- ✅ MCP integration for web search
-- ✅ Professional system prompts
-- ✅ Error handling and logging
-- ✅ Interactive web interface
+You've built a complete ADK agent with:
+- Custom tools for time and calculations
+- MCP integration for web search
+- Professional system prompts
+- Error handling and logging
+- Interactive web interface
 
 This agent can serve as a foundation for more complex projects. The patterns you've learned here apply to any ADK agent you build.
 
@@ -497,4 +499,6 @@ Keep experimenting and building! The ADK framework is designed to grow with your
 
 ---
 
-Ready for more? Continue to [Working with Tools](./02-working-with-tools.md) →
+<div style="text-align: center; margin-top: 3rem;">
+  <a href="multi-agent-systems" class="btn btn-primary fs-5">Continue to Multi-Agent Systems</a>
+</div>
