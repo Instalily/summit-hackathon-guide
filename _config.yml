@@ -27,7 +27,7 @@ aux_links:
     - "//google.github.io/adk-docs/"
 
 # Footer
-footer_content: "SRS x InstaLILY Summit Hackathon 2024."
+footer_content: "SRS x InstaLILY Summit Hackathon 2025."
 
 # Back to top
 back_to_top: true
@@ -46,3 +46,11 @@ callouts:
     color: blue
   tip:
     color: green
+
+# Exclude from navigation
+exclude:
+  - "*.pdf"
+  - "README.md"
+  - "assets/"
+  - "pdf-viewer.html"
+  - "resources.md"
