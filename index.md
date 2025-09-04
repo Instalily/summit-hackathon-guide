@@ -32,7 +32,7 @@ This Replit template includes:
 
 ## Local Development Quick Start
 
-Get started with local development by downloading the .zip file [here](https://drive.google.com/file/d/1-HV373G19Jl_LzRyohk0Tu4qHUwNqkXK/view?usp=sharing)
+Get started with local development by downloading the .zip file [here](https://drive.google.com/file/d/1CrjBOAZEMzMBTu5XdgSOWZTkzvYWOYlq/view?usp=sharing)
 
 ## Documentation Overview
 

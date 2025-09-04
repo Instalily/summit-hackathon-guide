@@ -1,0 +1,108 @@
+---
+layout: default
+title: PDF Documentation
+nav_order: 7
+---
+
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        .pdf-container {
+            width: 100%;
+            height: 90vh;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+        .pdf-fallback {
+            padding: 20px;
+            background-color: #f5f5f5;
+            text-align: center;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+        .pdf-controls {
+            margin: 20px 0;
+            text-align: center;
+        }
+        .pdf-controls a {
+            margin: 0 10px;
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+            display: inline-block;
+        }
+        .pdf-controls a:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Hackathon Guide PDF</h1>
+
+<div class="pdf-controls">
+    <a href="assets/hackathon-guide.pdf" target="_blank">Open in New Tab</a>
+    <a href="assets/hackathon-guide.pdf" download>Download PDF</a>
+    <a href="#" onclick="toggleFullscreen()">Fullscreen</a>
+</div>
+
+<!-- Primary PDF Display Method -->
+<div class="pdf-container" id="pdfContainer">
+    <embed src="assets/hackathon-guide.pdf" type="application/pdf" width="100%" height="100%">
+</div>
+
+<!-- Fallback for browsers that don't support embed -->
+<noscript>
+    <div class="pdf-fallback">
+        <h3>PDF Viewer requires JavaScript</h3>
+        <p>Please enable JavaScript or <a href="assets/hackathon-guide.pdf">download the PDF</a> to view it.</p>
+    </div>
+</noscript>
+
+<!-- Alternative using iframe (better compatibility) -->
+<!--
+<iframe src="assets/hackathon-guide.pdf" width="100%" height="600px" frameborder="0">
+    This browser does not support PDFs. Please <a href="assets/hackathon-guide.pdf">download the PDF</a> to view it.
+</iframe>
+-->
+
+<!-- Using Google Docs Viewer (works without PDF plugin) -->
+<!--
+<iframe src="https://docs.google.com/viewer?url=YOUR_FULL_URL/assets/hackathon-guide.pdf&embedded=true" 
+        width="100%" 
+        height="600px" 
+        frameborder="0">
+</iframe>
+-->
+
+<script>
+function toggleFullscreen() {
+    var elem = document.getElementById("pdfContainer");
+    if (!document.fullscreenElement) {
+        elem.requestFullscreen().catch(err => {
+            alert(`Error attempting to enable fullscreen: ${err.message}`);
+        });
+    } else {
+        document.exitFullscreen();
+    }
+}
+
+// Check if PDF embed is supported
+window.onload = function() {
+    var embed = document.querySelector('embed');
+    if (!embed || !embed.getSVGDocument) {
+        // Fallback to iframe method
+        var container = document.getElementById('pdfContainer');
+        container.innerHTML = '<iframe src="assets/hackathon-guide.pdf" width="100%" height="100%" frameborder="0">' +
+                             'This browser does not support PDFs. Please <a href="assets/hackathon-guide.pdf">download the PDF</a> to view it.' +
+                             '</iframe>';
+    }
+}
+</script>
+
+</body>
+</html>
