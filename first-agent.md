@@ -1,4 +1,9 @@
-# Tutorial: Building Your First ADK Agent
+---
+title: First Agent
+nav_order: 3
+---
+
+# Agent Guide Part 1: Single Agent Pattern
 
 In this tutorial, we'll build a complete AI agent from scratch using Google's Agent Development Kit (ADK). By the end, you'll have a working agent that can answer questions, use tools, and interact with users.
 

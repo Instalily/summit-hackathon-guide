@@ -1,1 +1,10 @@
-theme: minima
+title: SRS x InstaLILY Hackathon
+description: Documentation site
+remote_theme: just-the-docs/just-the-docs
+color_scheme: light
+
+# Enable search box
+search_enabled: true
+
+# Define the navigation structure
+nav_order: 1

@@ -1,4 +1,9 @@
-# Getting Started with ADK Agent Development
+---
+title: Getting Started
+nav_order: 2
+---
+
+# Getting Started
 
 This guide will help you get up and running with the ADK template in under 10 minutes.
 

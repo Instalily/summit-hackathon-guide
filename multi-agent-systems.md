@@ -1,4 +1,9 @@
-# Guide: Building Multi-Agent Systems with ADK
+---
+title: Multi-Agent Systems
+nav_order: 4
+---
+
+# Agent Guide Part 2: Multi Agent Pattern
 
 Multi-agent systems allow you to create complex AI applications by coordinating multiple specialized agents. This guide covers everything from basic delegation to advanced orchestration patterns.
 

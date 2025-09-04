@@ -1,9 +1,8 @@
 ---
 title: Home
+nav_order: 1
 ---
 
-# Welcome
+# Welcome to SRS x InstaLILY Summit Hackathon
 
-- [Getting Started](getting-started.md)
-- [First Agent](first-agent.md)
-- [Multi-Agent Systems](multi-agent-systems.md)
+Choose a section from the sidebar to get started.
