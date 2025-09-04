@@ -10,9 +10,10 @@ Welcome to the Agent Development Kit (ADK) hackathon guide. This resource will h
 ## Quick Start
 
 <div style="display: flex; gap: 1rem; margin: 2rem 0; flex-wrap: wrap;">
-  <a href="getting-started" class="btn btn-primary fs-5 mb-4 mb-md-0 mr-2">ADK Setup</a>
+  <a href="getting-started" class="btn btn-primary fs-5 mb-4 mb-md-0 mr-2">Getting Started</a>
   <a href="flowise-quickstart" class="btn btn-purple fs-5 mb-4 mb-md-0 mr-2">Flowise No-Code</a>
   <a href="first-agent" class="btn fs-5 mb-4 mb-md-0">Build First Agent</a>
+  <a href="first-agent" class="btn fs-5 mb-4 mb-md-0">Build Multi Agent</a>
 </div>
 
 ## Replit Quick Start

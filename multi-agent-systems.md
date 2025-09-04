@@ -22,6 +22,40 @@ Learn how to build sophisticated AI systems by coordinating multiple specialized
 
 ## Core Concepts
 
+### Agent Hierarchy (Parent/Sub-Agents)
+
+The foundation for structuring multi-agent systems is the parent-child relationship defined in BaseAgent.
+
+**Establishing Hierarchy**: You create a tree structure by passing a list of agent instances to the `sub_agents` argument when initializing a parent agent. ADK automatically sets the `parent_agent` attribute on each child agent during initialization.
+
+**Single Parent Rule**: An agent instance can only be added as a sub-agent once. Attempting to assign a second parent will result in a ValueError.
+
+**Importance**: This hierarchy defines the scope for Workflow Agents and influences the potential targets for LLM-Driven Delegation. You can navigate the hierarchy using `agent.parent_agent` or find descendants using `agent.find_agent(name)`.
+
+```python
+# Conceptual Example: Defining Hierarchy
+from google.adk.agents import LlmAgent, BaseAgent
+
+# Define individual agents
+greeter = LlmAgent(name="Greeter", model="gemini-2.0-flash")
+task_doer = BaseAgent(name="TaskExecutor") # Custom non-LLM agent
+
+# Create parent agent and assign children via sub_agents
+coordinator = LlmAgent(
+    name="Coordinator",
+    model="gemini-2.0-flash",
+    description="I coordinate greetings and tasks.",
+    sub_agents=[ # Assign sub_agents here
+        greeter,
+        task_doer
+    ]
+)
+
+# Framework automatically sets:
+# assert greeter.parent_agent == coordinator
+# assert task_doer.parent_agent == coordinator
+```
+
 ### Agent Types in ADK
 
 | Agent Type | Purpose | Use Case |
@@ -32,7 +66,7 @@ Learn how to build sophisticated AI systems by coordinating multiple specialized
 | **Loop Agents** | Iterate over data | Batch processing |
 | **Router Agents** | Dynamic selection | Intent-based routing |
 
-## Part 1: Basic Multi-Agent Patterns
+## Basic Multi-Agent Patterns
 
 ### Pattern 1: Delegation Chain
 
@@ -177,139 +211,201 @@ class RouterAgent:
         }
 ```
 
-## Part 2: Advanced Orchestration
+## Real-World Examples
 
-### Hierarchical Agent System
-
-Build enterprise-grade systems with multiple management layers.
+### Example 1: Customer Support System
 
 ```python
-from google.adk.agents import Agent, SequentialAgent, ParallelAgent
-from typing import List, Dict, Any
-import json
-
-class HierarchicalAgentSystem:
-    """
-    Enterprise-grade multi-level agent hierarchy.
-    
-    Structure:
-        Director (Level 1)
-            ├── Data Manager (Level 2)
-            │   ├── Data Collector (Level 3)
-            │   └── Data Processor (Level 3)
-            ├── Analysis Manager (Level 2)
-            │   └── Analyzer (Level 3)
-            └── Reporting Manager (Level 2)
-                └── Report Writer (Level 3)
-    """
+class CustomerSupportSystem:
+    """Multi-agent customer support with specialized handlers."""
     
     def __init__(self):
-        # Level 3: Worker agents (bottom level)
-        self.workers = self.create_worker_agents()
+        # Specialized support agents
+        self.billing_agent = Agent(
+            name="billing_specialist",
+            model="gemini-2.5-flash",
+            instruction="Handle billing inquiries, refunds, and payment issues."
+        )
         
-        # Level 2: Manager agents
-        self.managers = self.create_manager_agents()
+        self.technical_agent = Agent(
+            name="technical_support",
+            model="gemini-2.5-flash",
+            instruction="Resolve technical issues and provide troubleshooting."
+        )
         
-        # Level 1: Director agent (top level)
-        self.director = self.create_director_agent()
+        self.general_agent = Agent(
+            name="general_support",
+            model="gemini-2.5-flash",
+            instruction="Handle general inquiries and FAQs."
+        )
+        
+        # Router to classify intent
+        self.intent_router = Agent(
+            name="intent_classifier",
+            model="gemini-2.5-flash",
+            instruction="""Classify customer inquiries into:
+            - billing: Payment, refunds, invoices
+            - technical: Bugs, errors, not working
+            - general: Other questions
+            Return only the category."""
+        )
     
-    def create_worker_agents(self) -> Dict[str, Agent]:
-        """Create specialized worker agents."""
-        return {
-            "data_collector": Agent(
-                name="data_collector",
-                model="gemini-2.5-flash",
-                description="Collects data from various sources",
-                instruction="Gather comprehensive data from all available sources.",
-                tools=[web_scraper, api_caller, database_query]
-            ),
-            "data_processor": Agent(
-                name="data_processor",
-                model="gemini-2.5-flash",
-                description="Processes and cleans data",
-                instruction="Clean, normalize, and prepare data for analysis.",
-                tools=[data_cleaner, normalizer, validator]
-            ),
-            "analyzer": Agent(
-                name="analyzer",
-                model="gemini-2.5-flash",
-                description="Performs data analysis",
-                instruction="Analyze data and extract meaningful insights.",
-                tools=[statistics_tool, ml_model, visualization]
-            ),
-            "report_writer": Agent(
-                name="report_writer",
-                model="gemini-2.5-flash",
-                description="Writes reports",
-                instruction="Create clear, professional reports.",
-                tools=[formatter, chart_creator, pdf_generator]
-            )
-        }
-    
-    def create_manager_agents(self) -> Dict[str, Agent]:
-        """Create manager agents that coordinate workers."""
+    def handle_inquiry(self, customer_message: str):
+        # Route to appropriate agent
+        intent = self.intent_router.run(customer_message)
         
-        # Data team manager
-        data_manager = SequentialAgent(
-            name="data_manager",
-            description="Manages data collection and processing",
+        if "billing" in intent.lower():
+            return self.billing_agent.run(customer_message)
+        elif "technical" in intent.lower():
+            return self.technical_agent.run(customer_message)
+        else:
+            return self.general_agent.run(customer_message)
+```
+
+### Example 2: Content Creation Pipeline
+
+```python
+class ContentCreationPipeline:
+    """Automated content creation with multiple specialists."""
+    
+    def __init__(self):
+        self.pipeline = SequentialAgent(
+            name="content_pipeline",
             agents=[
-                self.workers["data_collector"],
-                self.workers["data_processor"]
+                Agent(name="researcher", instruction="Research the topic thoroughly"),
+                Agent(name="outliner", instruction="Create detailed content outline"),
+                Agent(name="writer", instruction="Write engaging content"),
+                Agent(name="editor", instruction="Edit for clarity and grammar"),
+                Agent(name="seo_optimizer", instruction="Optimize for search engines")
             ]
         )
-        
-        # Analysis team manager
-        analysis_manager = Agent(
-            name="analysis_manager",
-            model="gemini-2.5-flash",
-            description="Coordinates analysis tasks",
-            instruction="""You manage the analysis team. 
-            Break down analysis requests into subtasks and delegate to analysts.
-            Consolidate results into coherent insights.""",
-            tools=[self.workers["analyzer"]]
-        )
-        
-        # Reporting team manager
-        reporting_manager = Agent(
-            name="reporting_manager",
-            model="gemini-2.5-flash",
-            description="Manages report creation",
-            instruction="Coordinate report writing and ensure quality.",
-            tools=[self.workers["report_writer"]]
-        )
-        
-        return {
-            "data": data_manager,
-            "analysis": analysis_manager,
-            "reporting": reporting_manager
-        }
     
-    def create_director_agent(self) -> Agent:
-        """Create top-level director agent."""
-        return Agent(
-            name="director",
-            model="gemini-2.5-pro",  # Use more powerful model for director
-            description="Executive director coordinating all teams",
-            instruction="""You are the executive director of a data analysis firm.
-            
-            Your responsibilities:
-            1. Understand client requirements
-            2. Create project plan
-            3. Delegate to appropriate managers
-            4. Ensure quality and timeliness
-            5. Deliver final results to client
-            
-            You have three managers:
-            - Data Manager: Handles data collection and processing
-            - Analysis Manager: Performs analysis and insights
-            - Reporting Manager: Creates final deliverables
-            
-            Coordinate their work to deliver exceptional results.""",
-            tools=[self.managers["data"], self.managers["analysis"], self.managers["reporting"]]
-        )
-    
-    def execute_project(self, project_description: str) -> Dict[str, Any]:
-        """Execute a complete project through the hierarchy."""
-        return self.director.run(project_description)
+    def create_article(self, topic: str):
+        return self.pipeline.run(f"Create article about: {topic}")
 ```
+
+## Best Practices
+
+### Do's
+
+1. **Keep agents focused** - One clear responsibility per agent
+2. **Use appropriate models** - Heavy tasks → Pro models, Simple tasks → Flash models
+3. **Implement error handling** - Graceful fallbacks for agent failures
+4. **Monitor performance** - Track latency and costs
+5. **Test incrementally** - Start simple, add complexity gradually
+
+### Don'ts
+
+1. **Over-engineer** - Don't use multi-agent for simple tasks
+2. **Ignore costs** - Multiple agents = multiple API calls
+3. **Skip validation** - Always validate inter-agent data
+4. **Tight coupling** - Keep agents loosely coupled
+5. **Neglect logging** - Debug logs are crucial
+
+## Performance Optimization
+
+### Parallel vs Sequential Processing
+
+```python
+# Slow: Sequential execution (3+ seconds)
+results = []
+for agent in agents:
+    results.append(agent.run(task))
+
+# Fast: Parallel execution (1 second)
+parallel_agent = ParallelAgent(agents=agents)
+results = parallel_agent.run(task)
+```
+
+### Model Selection Strategy
+
+| Task Complexity | Recommended Model | Cost | Speed |
+|----------------|-------------------|------|-------|
+| Simple routing | gemini-2.5-flash | Low | Fast |
+| Data processing | gemini-2.5-flash | Low | Fast |
+| Complex reasoning | gemini-2.5-pro | High | Medium |
+| Creative tasks | gemini-2.5-pro | High | Medium |
+
+## Advanced Patterns
+
+### Pattern 4: Feedback Loop System
+
+```python
+class FeedbackLoopSystem:
+    """Agents that learn from each other's outputs."""
+    
+    def __init__(self):
+        self.generator = Agent(name="generator", instruction="Generate content")
+        self.critic = Agent(name="critic", instruction="Critique and suggest improvements")
+        self.refiner = Agent(name="refiner", instruction="Refine based on feedback")
+    
+    def create_with_feedback(self, prompt: str, iterations: int = 2):
+        result = self.generator.run(prompt)
+        
+        for _ in range(iterations):
+            feedback = self.critic.run(f"Critique this: {result}")
+            result = self.refiner.run(f"Improve based on: {feedback}\nOriginal: {result}")
+        
+        return result
+```
+
+### Pattern 5: Consensus System
+
+```python
+class ConsensusSystem:
+    """Multiple agents vote on the best solution."""
+    
+    def __init__(self):
+        self.experts = [
+            Agent(name=f"expert_{i}", model="gemini-2.5-flash")
+            for i in range(3)
+        ]
+        self.arbitrator = Agent(
+            name="arbitrator",
+            instruction="Choose the best solution from multiple options"
+        )
+    
+    def get_consensus(self, question: str):
+        # Get solutions from all experts
+        solutions = ParallelAgent(agents=self.experts).run(question)
+        
+        # Arbitrator picks the best
+        return self.arbitrator.run(f"Choose best solution:\n{solutions}")
+```
+
+## Hackathon Project Ideas
+
+### Beginner Multi-Agent Projects
+
+1. **Blog Generator**: Research → Outline → Write → Edit
+2. **Study Assistant**: Question analyzer → Resource finder → Explainer
+3. **Recipe Creator**: Ingredient checker → Recipe generator → Nutrition calculator
+
+### Advanced Multi-Agent Projects
+
+1. **AI Startup Assistant**: Market researcher → Business planner → Pitch creator
+2. **Code Review System**: Style checker → Bug finder → Performance analyzer → Security auditor
+3. **Investment Advisor**: Data collector → Risk analyzer → Portfolio optimizer → Report generator
+
+## Summary
+
+You've learned:
+- How to design multi-agent architectures
+- Parent/sub-agent hierarchy in ADK
+- Sequential, parallel, and hierarchical patterns
+- Dynamic routing and orchestration
+- Real-world implementation examples
+- Performance optimization techniques
+
+## Resources
+
+- [ADK Documentation](https://google.github.io/adk-docs/)
+- [Example Code Repository](https://github.com/google/adk-examples)
+- [Multi-Agent Design Patterns](https://patterns.adk.dev)
+
+---
+
+<div style="text-align: center; margin-top: 3rem;">
+  <a href="getting-started" class="btn btn-purple fs-5">Back to Getting Started</a>
+  <a href="flowise-quickstart" class="btn btn-primary fs-5" style="margin-left: 1rem;">Try Flowise</a>
+</div>

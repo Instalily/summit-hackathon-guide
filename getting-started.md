@@ -19,7 +19,7 @@ Before you begin, ensure you have:
 | **Knowledge** | Basic Python understanding |
 | **Optional** | Google Cloud account for advanced features |
 
-**Note:** If using Replit, skip to Step 2.
+**Note:** **If using Replit, skip to Step 2.**
 
 ## Step 1: Environment Setup
 
@@ -49,9 +49,6 @@ SummitTemplate/
 │   ├── agent.py        # Your main agent definition
 │   ├── prompt.py       # System prompts and instructions
 │   └── __init__.py     # Package initialization
-├── docs/               # Documentation (you are here!)
-├── pyproject.toml      # Project configuration
-└── .replit            # Replit deployment config
 ```
 
 ### Key Files
@@ -196,23 +193,3 @@ def get_mcp_toolset(user_id: str = 'guest_user') -> MCPToolset:
 The MCP server provides:
 - Online search capabilities
 - Quick answers with citations
-
-## Step 6: Testing and Debugging
-
-### Enable Detailed Logging
-
-```python
-import logging
-
-# Configure logging for better debugging
-logging.basicConfig(
-    level=logging.INFO,
-    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
-)
-logger = logging.getLogger(__name__)
-
-# Use throughout your code
-logger.info(f"Processing request: {user_input}")
-logger.debug(f"Tool response: {response}")
-logger.error(f"Error occurred: {error}")
-```
